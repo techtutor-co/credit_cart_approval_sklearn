@@ -1,9 +1,12 @@
 {
   "dataset_path": "datasets/Bank_Personal_Loan_Modelling.csv",
-  "test_size": 0.2,
+  "test_size": 0.15,
   "validation_size": 0.1,
+  "random_state": 300,
   "model_hyperparameters": {
-    "kernel": "sigmoid"
+    "kernel": "linear",
+    "random_state": 300,
+    "class_weight": "balanced"
   },
   "model_path": "model/model.joblib"
 }

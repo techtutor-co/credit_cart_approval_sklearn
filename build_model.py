@@ -1,7 +1,6 @@
 import json
 import click
-import pickle
-from joblib import dump, load
+from joblib import dump
 
 import pandas as pd
 import numpy as np
@@ -10,6 +9,10 @@ from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+
+import warnings
+
+warnings.filterwarnings('ignore')
 
 
 def label_encode(df, column):
@@ -63,8 +66,10 @@ def train_model(dataset, config):
     X = dataset.drop(['Personal Loan'], axis=1)
     y = dataset['Personal Loan']
 
-    X_train, X_validation, y_train, y_validation = train_test_split(X, y, test_size=config['validation_size'])
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=config['test_size'])
+    X_train, X_validation, y_train, y_validation = train_test_split(X, y, test_size=config['validation_size'],
+                                                                    random_state=config['random_state'])
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=config['test_size'],
+                                                        random_state=config['random_state'])
 
     learner = SVC()
     learner.set_params(**config['model_hyperparameters'])
