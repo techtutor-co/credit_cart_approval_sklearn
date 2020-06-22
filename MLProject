@@ -1,0 +1,9 @@
+name: Credit Card Approval
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      config_path: {type: string, default: 'config.json'}
+    command: "python build_model.py --config_path {config_path}"
