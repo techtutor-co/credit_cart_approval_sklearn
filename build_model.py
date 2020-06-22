@@ -9,7 +9,7 @@ import numpy as np
 from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score
 
 
 def label_encode(df, column):
@@ -54,7 +54,7 @@ def encode_dataset(df):
 
 def evaluate_model(model, X, y):
     predictions = model.predict(X)
-    return classification_report(y, predictions)
+    return accuracy_score(y, predictions)
 
 
 def train_model(dataset, config):
@@ -63,14 +63,16 @@ def train_model(dataset, config):
     X = dataset.drop(['Personal Loan'], axis=1)
     y = dataset['Personal Loan']
 
+    X_train, X_validation, y_train, y_validation = train_test_split(X, y, test_size=config['validation_size'])
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=config['test_size'])
 
     learner = SVC()
     learner.set_params(**config['model_hyperparameters'])
     learner.fit(X_train, y_train)
 
-    score_report = evaluate_model(learner, X_test, y_test)
-    return learner, score_report
+    test_score = evaluate_model(learner, X_test, y_test)
+    validation_score = evaluate_model(learner, X_validation, y_validation)
+    return learner, test_score, validation_score
 
 
 @click.command()
@@ -82,9 +84,10 @@ def build_model(config_path):
     dataset = pd.read_csv(config['dataset_path'])
     dataset = encode_dataset(dataset)
 
-    model, score_report = train_model(dataset, config)
+    model, test_score, validation_score = train_model(dataset, config)
     dump(model, config['model_path'])
-    print(score_report)
+    print(f'test_score: {test_score}')
+    print(f'validation_score: {validation_score}')
 
 
 if __name__ == "__main__":
