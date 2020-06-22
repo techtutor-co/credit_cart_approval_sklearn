@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/techtutor/Documents/Udemy/MlFlow/CreditCardApproval/credit_cart_approval_sklearn/mlruns/0/b87af4f230eb47049a034fdabfa416db/artifacts
+end_time: 1592847381901
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: b87af4f230eb47049a034fdabfa416db
+run_uuid: b87af4f230eb47049a034fdabfa416db
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1592847381651
+status: 3
+tags: []
+user_id: techtutor
