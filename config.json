@@ -7,5 +7,5 @@
     "kernel": "linear",
     "random_state": 300
   },
-  "model_path": "model/model.joblib"
+  "model_path": "model"
 }

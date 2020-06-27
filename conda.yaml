@@ -10,6 +10,6 @@ dependencies:
   - joblib==0.14.1
   - pip
   - pip:
-      - mlflow==1.8.0
+      - mlflow==1.9.1
       - pandas-profiling==2.6.0
 

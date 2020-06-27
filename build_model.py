@@ -10,8 +10,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-import mlflow
 from mlflow import log_metric, log_param, log_params, log_artifact
+import mlflow.sklearn
 import warnings
 
 warnings.filterwarnings('ignore')
@@ -79,6 +79,7 @@ def train_model(dataset, config):
 
     test_score = evaluate_model(learner, X_test, y_test)
     validation_score = evaluate_model(learner, X_validation, y_validation)
+
     return learner, test_score, validation_score
 
 
@@ -96,9 +97,9 @@ def build_model(config_path):
     log_params(config['model_hyperparameters'])
     model, test_score, validation_score = train_model(dataset, config)
 
-    dump(model, config['model_path'])
+    mlflow.sklearn.log_model(model, config['model_path'])
 
-    log_artifact(config['model_path'])
+    #log_artifact(config['model_path'])
     log_artifact(config['dataset_path'])
 
     log_metric('test_score', test_score)
